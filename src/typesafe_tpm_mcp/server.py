@@ -1,6 +1,6 @@
 """MCP server exposing the jev ticket-quality gate to agents.
 
-Run with:  uv run ticket-quality-mcp
+Run with:  uv run typesafe-tpm-mcp
 Transport: stdio (the default for local MCP clients).
 """
 
@@ -9,7 +9,7 @@ from __future__ import annotations
 import os
 from typing import Any
 
-from mcp.server.fastmcp import FastMCP
+from mcp.server.mcpserver import MCPServer
 
 from .schema import (
     TICKET_REVIEW_QUESTIONS,
@@ -20,7 +20,7 @@ from .schema import (
     route_ticket_review,
 )
 
-mcp = FastMCP("ticket-quality")
+mcp = MCPServer("ticket-quality")
 
 
 TICKET_TEMPLATE = {

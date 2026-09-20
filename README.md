@@ -1,4 +1,4 @@
-# ticket-quality-mcp
+# typesafe-tpm-mcp
 
 An MCP server that reviews a work ticket with a TypeSafe System One model
 before an agent executes it, and returns a binding routing verdict plus
@@ -46,7 +46,7 @@ pip install -e .
 Verify it starts (it will wait on stdio — Ctrl-C to exit):
 
 ```bash
-uv run ticket-quality-mcp
+uv run typesafe-tpm-mcp
 ```
 
 ### 3. Register the server with your MCP client
@@ -56,7 +56,7 @@ uv run ticket-quality-mcp
 ```bash
 claude mcp add ticket-quality \
   --env TYPESAFE_API_KEY=your-key-here \
-  -- uv --directory /absolute/path/to/ticket-quality-mcp run ticket-quality-mcp
+  -- uv --directory /absolute/path/to/typesafe-tpm-mcp run typesafe-tpm-mcp
 ```
 
 **Any client using a JSON config** (`claude_desktop_config.json`,
@@ -68,8 +68,8 @@ claude mcp add ticket-quality \
     "ticket-quality": {
       "command": "uv",
       "args": [
-        "--directory", "/absolute/path/to/ticket-quality-mcp",
-        "run", "ticket-quality-mcp"
+        "--directory", "/absolute/path/to/typesafe-tpm-mcp",
+        "run", "typesafe-tpm-mcp"
       ],
       "env": { "TYPESAFE_API_KEY": "your-key-here" }
     }
@@ -109,7 +109,7 @@ fixes, rather than starting to write code.
 ## Tuning
 
 Routing thresholds live in `DEFAULT_THRESHOLDS` in
-`src/ticket_quality_mcp/schema.py` and can be overridden per-key with
+`src/typesafe_tpm_mcp/schema.py` and can be overridden per-key with
 `TQ_`-prefixed environment variables — no code change needed:
 
 ```bash
@@ -148,7 +148,7 @@ through, raise it before touching anything else.
 ## Layout
 
 ```
-src/ticket_quality_mcp/
+src/typesafe_tpm_mcp/
   schema.py    TicketDraft, the jev primitives, thresholds, router, feedback builder
   server.py    FastMCP server exposing the three tools
 skills/
