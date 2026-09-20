@@ -144,13 +144,17 @@ through, raise it before touching anything else.
   referenced ticket is closed.
 - **Fails closed.** If the TypeSafe call errors, the tool returns
   `needs_human_scoping`, not a pass.
+- **Pinned to `mcp` v2.** The server uses `mcp.server.mcpserver.MCPServer`
+  (v1's `FastMCP` was renamed in `mcp` 2.0). `pyproject.toml` pins
+  `mcp>=2,<3` so `uv sync` can't silently resolve back to a version this
+  code doesn't match.
 
 ## Layout
 
 ```
 src/typesafe_tpm_mcp/
   schema.py    TicketDraft, the jev primitives, thresholds, router, feedback builder
-  server.py    FastMCP server exposing the three tools
+  server.py    MCPServer (mcp v2) exposing the three tools
 skills/
   ticket-quality/SKILL.md
 ```

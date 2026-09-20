@@ -23,9 +23,12 @@ reviewed and unchanged since, or tickets you are only reading for context.
 
 Call `get_ticket_template` before writing a ticket. Fill every section —
 the gate checks all of them, and an empty `not_in_scope` or `do_not_touch`
-is one of the most common reasons a ticket gets held. `explain_primitives`
-lists exactly what each question checks if you want to pre-empt a failure
-while drafting.
+is one of the most common reasons a ticket gets held. Use `files_to_create`
+for new files and `files_to_modify` for existing ones the ticket will
+change — a ticket that's really a modification but only fills
+`files_to_create` reads as more novel/isolated than it is, which can throw
+off `blast_radius`. `explain_primitives` lists exactly what each question
+checks if you want to pre-empt a failure while drafting.
 
 ## Reading the verdict
 

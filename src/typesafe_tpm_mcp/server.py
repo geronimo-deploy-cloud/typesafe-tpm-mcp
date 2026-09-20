@@ -31,6 +31,7 @@ TICKET_TEMPLATE = {
     "acceptance_criteria": ["Checkable pass/fail condition"],
     "not_in_scope": ["Adjacent work an agent might assume is included but isn't"],
     "files_to_create": ["Path or location the ticket should produce"],
+    "files_to_modify": ["Existing file the ticket is expected to change"],
     "do_not_touch": ["Files, systems, or pipelines that must not be modified"],
     "context_references": ["Dependencies, related tickets, prior art"],
 }
@@ -54,6 +55,7 @@ def review_ticket_quality(
     acceptance_criteria: list[str] | None = None,
     not_in_scope: list[str] | None = None,
     files_to_create: list[str] | None = None,
+    files_to_modify: list[str] | None = None,
     do_not_touch: list[str] | None = None,
     context_references: list[str] | None = None,
 ) -> dict[str, Any]:
@@ -73,6 +75,7 @@ def review_ticket_quality(
         acceptance_criteria=acceptance_criteria or [],
         not_in_scope=not_in_scope or [],
         files_to_create=files_to_create or [],
+        files_to_modify=files_to_modify or [],
         do_not_touch=do_not_touch or [],
         context_references=context_references or [],
     )
@@ -134,7 +137,7 @@ def explain_primitives() -> dict[str, Any]:
 
 
 def main() -> None:
-    mcp.run()
+    mcp.run(transport="stdio")
 
 
 if __name__ == "__main__":

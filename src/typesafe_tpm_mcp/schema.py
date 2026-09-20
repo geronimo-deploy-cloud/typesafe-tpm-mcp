@@ -35,6 +35,10 @@ class TicketDraft(BaseModel):
         default_factory=list,
         description="Files or locations the ticket is expected to produce.",
     )
+    files_to_modify: list[str] = Field(
+        default_factory=list,
+        description="Existing files the ticket is expected to change.",
+    )
     do_not_touch: list[str] = Field(
         default_factory=list,
         description="Files, systems, or pipelines that must not be modified.",
@@ -72,8 +76,9 @@ TICKET_REVIEW_QUESTIONS = {
         "exclude the adjacent work an agent could plausibly assume is included?",
     ),
     "protected_paths_coverage": Choice(
-        instructions="Given `description` and `files_to_create`, does "
-        "`do_not_touch` need to name protected files/systems, and if so, does it?",
+        instructions="Given `description`, `files_to_create`, and "
+        "`files_to_modify`, does `do_not_touch` need to name protected "
+        "files/systems, and if so, does it?",
         criteria={
             "specified_and_relevant": "Protection is needed and is named.",
             "not_applicable": "No protected files/systems are implicated by this ticket.",
@@ -101,9 +106,9 @@ TICKET_REVIEW_QUESTIONS = {
         "stated `goal`?",
     ),
     "blast_radius": Score(
-        instructions="Given `files_to_create`, `do_not_touch`, and "
-        "`description`, how much of the existing system could plausibly be "
-        "touched while executing this ticket?",
+        instructions="Given `files_to_modify`, `files_to_create`, "
+        "`do_not_touch`, and `description`, how much of the existing "
+        "system could plausibly be touched while executing this ticket?",
         criteria=["isolated", "moderate", "wide"],
     ),
     "internal_contradiction": Noul(
